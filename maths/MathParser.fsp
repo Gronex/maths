@@ -1,0 +1,21 @@
+﻿%{
+%}
+
+%token <string> ID
+%token <int> INT
+%token <float> FLOAT
+
+%token PLUS MINUS
+%token MULT DIV
+%token EOF
+
+//start
+%start start
+%type <string> start
+
+%%
+
+start :
+	| { "Nothing to see here" }
+
+%%

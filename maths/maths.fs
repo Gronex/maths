@@ -1,4 +1,4 @@
-module maths
+﻿module Maths
 
 type Expr =
     | Num of int
@@ -9,6 +9,8 @@ type Expr =
     | Div of Expr * Expr
     | Pow of Expr * Expr
     | Var of string
+
+type Assignment = string * Expr
 
 
 let rec calculate vars = function
@@ -25,14 +27,3 @@ let rec calculate vars = function
     with 
     | :? System.Collections.Generic.KeyNotFoundException -> failwith (sprintf "'%s' not in vars" name)
         
-//| _ -> failwith "Not supported"
-
-let x = calculate Map.empty (Mult (Div (Num 5, Num 10), Dec 0.5))
-
-[<EntryPoint>]
-let main argv =
-    printfn "%A" argv
-    let y = calculate (Map.ofList [("x", 10.0)]) (Mult (Num 5, Var "x"))
-    printfn "%f" y
-    ignore (System.Console.ReadLine())
-    0 // return an integer exit code
