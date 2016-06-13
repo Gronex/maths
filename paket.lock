@@ -1,0 +1,7 @@
+NUGET
+  remote: http://api.nuget.org/v3/index.json
+  specs:
+    FAKE (4.28)
+    FsLexYacc (6.1)
+      FsLexYacc.Runtime (>= 6.1)
+    FsLexYacc.Runtime (6.1)
