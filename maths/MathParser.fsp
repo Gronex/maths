@@ -1,21 +1,41 @@
 ﻿%{
+open Ast
 %}
 
+%start start
 %token <string> ID
 %token <int> INT
 %token <float> FLOAT
 
-%token PLUS MINUS
 %token MULT DIV
-%token EOF
+%token PLUS MINUS
+%token ASSIGN
+%token NEWLINE EOF
+%type <Ast.Prog> start
 
-//start
-%start start
-%type <string> start
+%nonassoc ASSIGN
+%left PLUS MINUS
+%left MULT DIV
 
 %%
 
-start :
-	| { "Nothing to see here" }
+start : Prog { $1 }
 
+Prog: StmtList { List.rev($1) }
+
+Expr: ID { Var($1) }
+	| INT { Num(double $1) }
+	| FLOAT { Num($1) }
+	| Expr PLUS Expr { Plus($1, $3) }
+	| Expr MINUS Expr { Minus($1, $3) }
+	| Expr MULT Expr { Mult($1, $3) }
+	| Expr DIV Expr { Div($1, $3) }
+	| MINUS Expr { Minus(Num(0.0), $2) }
+
+Stmt: ID ASSIGN Expr { Assign($1, $3) }
+	| Expr { Expr($1) }
+
+
+StmtList: Stmt { [$1] }
+	| StmtList NEWLINE Stmt { $3 :: $1}
 %%
