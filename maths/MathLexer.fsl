@@ -25,8 +25,9 @@ let lexeme lexbuf =
 let char        = ['a'-'z' 'A'-'Z']
 let text        = ['a'-'z' 'A'-'Z']+
 let digit       = ['0'-'9']
+let frac        = '.' digit*
 let int         = digit+
-let float       = digit+ '.' digit+
+let float       = digit* frac?
 let whitespace  = [' ' '\t']
 let newline     = "\n\r" | '\n' | '\r'
 let operators   = "=" | "+" | "-" | "*" | "/" | "(" | ")" | "^"
@@ -36,8 +37,8 @@ rule tokenize = parse
 | whitespace    { tokenize lexbuf }
 | newline       { NEWLINE }
 | text          { ID (lexeme lexbuf )}
-| int			{ INT (Int32.Parse(lexeme lexbuf)) }
-| float			{ FLOAT (Double.Parse (lexeme lexbuf)) }
+| int			{ INT (int (lexeme lexbuf)) }
+| float			{ FLOAT (float (lexeme lexbuf)) }
 | operators		{ match ops.TryFind(lexeme lexbuf) with
                     | Some (token) -> token
                     | None -> ID (lexeme lexbuf) }

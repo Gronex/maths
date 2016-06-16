@@ -15,3 +15,7 @@ type Stmt =
     | Expr of Expr
 
 type Prog = Stmt list
+
+type ReturnType =
+    | Double of double
+    | Unit

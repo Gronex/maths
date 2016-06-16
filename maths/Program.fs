@@ -5,6 +5,9 @@ open System
 open Microsoft.FSharp.Text
 open Ast
 
+let printResult = function
+| Double x -> printfn "%g" x
+| Unit -> ()
 
 let rec evalExpr vars = function
 | Num x -> x
@@ -19,10 +22,12 @@ let rec evalExpr vars = function
         | Some num -> num
         | None -> failwith (name + " not defined")
 
-let rec eval vars = function
-| Assign(name, expr)::rest -> eval (Map.add name (evalExpr vars expr) vars) rest
-| (Expr(expr))::rest -> eval (Map.add "Ans" (evalExpr vars expr) vars) rest
-| _ -> vars
+let rec eval vars lastResult = function
+| [] -> (lastResult, vars)
+| Assign(name, expr)::rest -> eval (Map.add name (evalExpr vars expr) vars) Unit rest
+| (Expr(expr))::rest -> 
+    let result = evalExpr vars expr
+    eval vars (Double result) rest
 
 
 let rec run vars = 
@@ -30,9 +35,10 @@ let rec run vars =
     let line = Console.ReadLine()
     let lexbuf = Lexing.LexBuffer<byte>.FromString line
     let prog = Parser.start Lexer.tokenize lexbuf
-    let res = eval vars prog
-    printfn "%f" (Map.find "Ans" res)
-    run res
+    let (res, vars) = eval vars Unit prog
+    printResult res
+    run vars
+
 
 [<EntryPoint>]
 let main argv = 
