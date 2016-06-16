@@ -8,6 +8,7 @@ type Expr =
     | Div of Expr * Expr
     | Pow of Expr * Expr
     | Var of string
+    | Grp of Expr
 
 type Stmt = 
     | Assign of string * Expr

@@ -13,6 +13,7 @@ let rec evalExpr vars = function
 | Mult (left, right) -> (evalExpr vars left) * (evalExpr vars right)
 | Div (left, right) -> (evalExpr vars left) / (evalExpr vars right)
 | Pow (left, right) -> (evalExpr vars left) ** (evalExpr vars right)
+| Grp (expr) -> evalExpr vars expr
 | Var name -> 
     match Map.tryFind name vars with 
         | Some num -> num

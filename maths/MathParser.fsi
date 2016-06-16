@@ -4,10 +4,13 @@ type token =
   | NEWLINE
   | EOF
   | ASSIGN
+  | POW
   | PLUS
   | MINUS
   | MULT
   | DIV
+  | LPAREN
+  | RPAREN
   | FLOAT of (float)
   | INT of (int)
   | ID of (string)
@@ -15,10 +18,13 @@ type tokenId =
     | TOKEN_NEWLINE
     | TOKEN_EOF
     | TOKEN_ASSIGN
+    | TOKEN_POW
     | TOKEN_PLUS
     | TOKEN_MINUS
     | TOKEN_MULT
     | TOKEN_DIV
+    | TOKEN_LPAREN
+    | TOKEN_RPAREN
     | TOKEN_FLOAT
     | TOKEN_INT
     | TOKEN_ID
