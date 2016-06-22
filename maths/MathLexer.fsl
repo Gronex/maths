@@ -36,6 +36,7 @@ let operators   = "=" | "+" | "-" | "*" | "/" | "(" | ")" | "^"
 rule tokenize = parse
 | whitespace    { tokenize lexbuf }
 | newline       { NEWLINE }
+| ','           { COMMA }
 | text          { ID (lexeme lexbuf )}
 | int			{ INT (int (lexeme lexbuf)) }
 | float			{ FLOAT (float (lexeme lexbuf)) }

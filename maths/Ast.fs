@@ -13,6 +13,9 @@ type Expr =
 type Stmt = 
     | Assign of string * Expr
     | Expr of Expr
+    | Apply of string * Expr list
+
+type Fun = string * string list * Expr list
 
 type Prog = Stmt list
 

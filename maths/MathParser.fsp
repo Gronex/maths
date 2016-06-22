@@ -7,6 +7,7 @@ open Ast
 %token <int> INT
 %token <float> FLOAT
 
+%token COMMA
 %token LPAREN RPAREN
 %token MULT DIV
 %token PLUS MINUS
@@ -39,8 +40,12 @@ Expr: ID { Var($1) }
 
 Stmt: ID ASSIGN Expr { Assign($1, $3) }
 	| Expr { Expr($1) }
+	| ID LPAREN ExprList RPAREN { Apply($1, List.rev($3)) }
+	| ID LPAREN RPAREN { Apply($1, []) }
 
 
+ExprList: Expr { [$1] }
+    | ExprList COMMA Expr { $3 :: $1 }
 StmtList: Stmt { [$1] }
-	| StmtList NEWLINE Stmt { $3 :: $1}
+	| StmtList NEWLINE Stmt { $3 :: $1 }
 %%

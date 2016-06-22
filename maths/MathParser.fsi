@@ -11,6 +11,7 @@ type token =
   | DIV
   | LPAREN
   | RPAREN
+  | COMMA
   | FLOAT of (float)
   | INT of (int)
   | ID of (string)
@@ -25,6 +26,7 @@ type tokenId =
     | TOKEN_DIV
     | TOKEN_LPAREN
     | TOKEN_RPAREN
+    | TOKEN_COMMA
     | TOKEN_FLOAT
     | TOKEN_INT
     | TOKEN_ID
@@ -36,6 +38,7 @@ type nonTerminalId =
     | NONTERM_Prog
     | NONTERM_Expr
     | NONTERM_Stmt
+    | NONTERM_ExprList
     | NONTERM_StmtList
 /// This function maps tokens to integer indexes
 val tagOfToken: token -> int
