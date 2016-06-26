@@ -11,6 +11,8 @@ type token =
   | DIV
   | LPAREN
   | RPAREN
+  | LBRACKET
+  | RBRACKET
   | COMMA
   | FLOAT of (float)
   | INT of (int)
@@ -26,6 +28,8 @@ type tokenId =
     | TOKEN_DIV
     | TOKEN_LPAREN
     | TOKEN_RPAREN
+    | TOKEN_LBRACKET
+    | TOKEN_RBRACKET
     | TOKEN_COMMA
     | TOKEN_FLOAT
     | TOKEN_INT
@@ -34,12 +38,15 @@ type tokenId =
     | TOKEN_error
 type nonTerminalId = 
     | NONTERM__startstart
+    | NONTERM_ArgList
+    | NONTERM_ExprList
+    | NONTERM_StmtList
     | NONTERM_start
     | NONTERM_Prog
     | NONTERM_Expr
     | NONTERM_Stmt
-    | NONTERM_ExprList
-    | NONTERM_StmtList
+    | NONTERM_assign
+    | NONTERM_apply
 /// This function maps tokens to integer indexes
 val tagOfToken: token -> int
 

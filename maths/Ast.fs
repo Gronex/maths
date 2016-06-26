@@ -10,12 +10,14 @@ type Expr =
     | Var of string
     | Grp of Expr
 
+
 type Stmt = 
     | Assign of string * Expr
     | Expr of Expr
     | Apply of string * Expr list
+    | FunAssign of string * string list * Stmt list
 
-type Fun = string * string list * Expr list
+type Fun = string list * Stmt list
 
 type Prog = Stmt list
 

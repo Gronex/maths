@@ -16,16 +16,18 @@ let ops =
         "(", LPAREN;
         ")", RPAREN;
         "^", POW;
+        "{", LBRACKET;
+        "}", RBRACKET;
     ] |> Map.ofList
 
 let lexeme lexbuf =
     LexBuffer<char>.LexemeString lexbuf
 
-# 24 "MathLexer.fs"
+# 26 "MathLexer.fs"
 let trans : uint16[] array = 
     [| 
     (* State 0 *)
-     [| 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 1us; 2us; 65535us; 65535us; 3us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 1us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 8us; 8us; 8us; 8us; 4us; 8us; 7us; 8us; 6us; 6us; 6us; 6us; 6us; 6us; 6us; 6us; 6us; 6us; 65535us; 65535us; 65535us; 8us; 65535us; 65535us; 65535us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 65535us; 65535us; 65535us; 8us; 65535us; 65535us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 9us; |];
+     [| 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 1us; 2us; 65535us; 65535us; 3us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 1us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 8us; 8us; 8us; 8us; 4us; 8us; 7us; 8us; 6us; 6us; 6us; 6us; 6us; 6us; 6us; 6us; 6us; 6us; 65535us; 65535us; 65535us; 8us; 65535us; 65535us; 65535us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 65535us; 65535us; 65535us; 8us; 65535us; 65535us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 5us; 8us; 65535us; 8us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 9us; |];
     (* State 1 *)
      [| 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; |];
     (* State 2 *)
@@ -60,46 +62,46 @@ and tokenize  (lexbuf : Microsoft.FSharp.Text.Lexing.LexBuffer<_>) = _fslex_toke
 and _fslex_tokenize  _fslex_state lexbuf =
   match _fslex_tables.Interpret(_fslex_state,lexbuf) with
   | 0 -> ( 
-# 37 "MathLexer.fsl"
+# 39 "MathLexer.fsl"
                                  tokenize lexbuf 
-# 65 "MathLexer.fs"
+# 67 "MathLexer.fs"
           )
   | 1 -> ( 
-# 38 "MathLexer.fsl"
+# 40 "MathLexer.fsl"
                                  NEWLINE 
-# 70 "MathLexer.fs"
+# 72 "MathLexer.fs"
           )
   | 2 -> ( 
-# 39 "MathLexer.fsl"
+# 41 "MathLexer.fsl"
                                  COMMA 
-# 75 "MathLexer.fs"
+# 77 "MathLexer.fs"
           )
   | 3 -> ( 
-# 40 "MathLexer.fsl"
+# 42 "MathLexer.fsl"
                                  ID (lexeme lexbuf )
-# 80 "MathLexer.fs"
+# 82 "MathLexer.fs"
           )
   | 4 -> ( 
-# 41 "MathLexer.fsl"
+# 43 "MathLexer.fsl"
                          INT (int (lexeme lexbuf)) 
-# 85 "MathLexer.fs"
+# 87 "MathLexer.fs"
           )
   | 5 -> ( 
-# 42 "MathLexer.fsl"
+# 44 "MathLexer.fsl"
                            FLOAT (float (lexeme lexbuf)) 
-# 90 "MathLexer.fs"
+# 92 "MathLexer.fs"
           )
   | 6 -> ( 
-# 43 "MathLexer.fsl"
+# 45 "MathLexer.fsl"
                               match ops.TryFind(lexeme lexbuf) with
                                    | Some (token) -> token
                                    | None -> ID (lexeme lexbuf) 
-# 97 "MathLexer.fs"
+# 99 "MathLexer.fs"
           )
   | 7 -> ( 
-# 46 "MathLexer.fsl"
+# 48 "MathLexer.fsl"
                                  EOF 
-# 102 "MathLexer.fs"
+# 104 "MathLexer.fs"
           )
   | _ -> failwith "tokenize"
 

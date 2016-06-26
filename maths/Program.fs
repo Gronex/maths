@@ -25,7 +25,7 @@ let rec evalExpr vars funs = function
         | Some num -> num
         | None -> failwith (name + " not defined")
 
-let rec evalFunc vars funs (_, argVars, exprs) args = 
+let rec evalFunc vars funs (argVars, exprs) args = 
     let argVals = List.map (fun arg -> evalExpr vars funs arg) args
     let vars = Map.ofList (List.zip argVars argVals)
     let (res, _, _) = eval vars funs Unit exprs
@@ -34,6 +34,7 @@ let rec evalFunc vars funs (_, argVars, exprs) args =
 and eval vars funs lastResult = function
 | [] -> (lastResult, vars, funs)
 | Assign(name, expr)::rest -> eval (Map.add name (evalExpr vars funs expr) vars) funs Unit rest
+| FunAssign(name, args, stmts)::rest -> eval vars (Map.add name (args, stmts) funs) Unit rest
 | (Expr(expr))::rest -> 
     let result = evalExpr vars funs expr
     eval vars funs (Double result) rest
@@ -60,7 +61,7 @@ let rec run vars funs =
 
 [<EntryPoint>]
 let main argv = 
-    run Map.empty (Map.ofList [("f", ("f", ["x"], [Expr(Plus(Var "x", Num 1.0))]))])
+    run Map.empty Map.empty
     Console.WriteLine("(press any key)")
     Console.ReadKey(true) |> ignore
     0 // return an integer exit code
