@@ -12,9 +12,9 @@ let ops =
         "-", MINUS;
         "*", MULT;
         "/", DIV;
+        "^", POW;
         "(", LPAREN;
         ")", RPAREN;
-        "^", POW;
         "{", LBRACKET;
         "}", RBRACKET;
     ] |> Map.ofList
@@ -31,13 +31,11 @@ let frac        = '.' digit*
 let int         = digit+
 let float       = digit* frac?
 let whitespace  = [' ' '\t']
-let newline     = "\n\r" | '\n' | '\r'
+let newline     = "\r\n" | '\n' | '\r'
 let operators   = "=" | "+" | "-" | "*" | "/" | "^" | "(" | ")" | "{" | "}"
  
 // rules   
 rule tokenize = parse
-| whitespace    { tokenize lexbuf }
-| newline       { NEWLINE }
 | ','           { COMMA }
 | text          { ID (lexeme lexbuf )}
 | int			{ INT (int (lexeme lexbuf)) }
@@ -45,4 +43,6 @@ rule tokenize = parse
 | operators		{ match ops.TryFind(lexeme lexbuf) with
                     | Some (token) -> token
                     | None -> ID (lexeme lexbuf) }
+| whitespace    { tokenize lexbuf }
+| newline       { NEWLINE }
 | eof           { EOF }

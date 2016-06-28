@@ -70,6 +70,7 @@
     <Compile Include="MathParser.fs" />
     <Compile Include="MathLexer.fs" />
     <Compile Include="Program.fs" />
+    <None Include="test.mat" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FsLexYacc.Runtime">

@@ -2,6 +2,7 @@
 // See the 'F# Tutorial' project for more help.
 
 open System
+open System.IO
 open Microsoft.FSharp.Text
 open Ast
 
@@ -57,11 +58,17 @@ let rec run vars funs =
         printfn "%s" message
         run vars funs
         
-
+let evalFile fileName = 
+    let script = Array.filter (fun s -> not (String.IsNullOrWhiteSpace s)) (File.ReadAllLines fileName)
+    let lexbuf = Lexing.LexBuffer<byte>.FromString (String.Join("\n", script))
+    let prog = Parser.start Lexer.tokenize lexbuf
+    let (res, _, _) = eval Map.empty Map.empty Unit prog
+    printResult res
 
 [<EntryPoint>]
 let main argv = 
-    run Map.empty Map.empty
+    //run Map.empty Map.empty
+    evalFile "C:/Users/gronex/git/maths/maths/test.mat"
     Console.WriteLine("(press any key)")
     Console.ReadKey(true) |> ignore
     0 // return an integer exit code
