@@ -52,20 +52,17 @@ Expr:
 	| MINUS Expr { Minus(Num(0.0), $2) }
 	| LPAREN Expr RPAREN { Grp($2) }
     | Expr POW Expr { Pow($1, $3) }
+    | ID LPAREN ExprList RPAREN { Apply($1, List.rev($3)) }
 
 Stmt: 
     | assign { $1 }
-    | apply { $1 }
 	| Expr { Expr($1) }
     ;
 
 assign:
     | ID ASSIGN Expr { Assign($1, $3) }
     | ID LPAREN ArgList RPAREN ASSIGN Stmt { FunAssign($1, List.rev($3), [$6]) }
-    | ID LPAREN ArgList RPAREN ASSIGN LBRACKET StmtList RBRACKET { FunAssign($1, List.rev($3), List.rev($7)) }
+    | ID LPAREN ArgList RPAREN ASSIGN LBRACKET NEWLINE StmtList NEWLINE RBRACKET { FunAssign($1, List.rev($3), List.rev($8)) }
     ;
 
-apply:
-    | ID LPAREN ExprList RPAREN { Apply($1, List.rev($3)) }
-    ;
 %%

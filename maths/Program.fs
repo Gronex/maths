@@ -25,8 +25,15 @@ let rec evalExpr vars funs = function
     match Map.tryFind name vars with 
         | Some num -> num
         | None -> failwith (name + " not defined")
+| Apply(name, args) ->  
+    match Map.tryFind name funs with
+    | Some func -> 
+        match evalFunc vars funs func args with
+        | Double x -> x
+        | _ -> 0.0
+    | None -> failwith (name + " not defined")
 
-let rec evalFunc vars funs (argVars, exprs) args = 
+and evalFunc vars funs (argVars, exprs) args = 
     let argVals = List.map (fun arg -> evalExpr vars funs arg) args
     let vars = Map.ofList (List.zip argVars argVals)
     let (res, _, _) = eval vars funs Unit exprs
@@ -39,10 +46,6 @@ and eval vars funs lastResult = function
 | (Expr(expr))::rest -> 
     let result = evalExpr vars funs expr
     eval vars funs (Double result) rest
-| Apply(name, args)::rest ->  
-    match Map.tryFind name funs with
-    | Some func -> (evalFunc vars funs func args, vars, funs)
-    | None -> failwith (name + " not defined")
 
 let rec run vars funs = 
     printf "> "
